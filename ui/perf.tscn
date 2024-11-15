@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1uhy6jlrqobt"]
+
+[ext_resource type="Script" path="res://ui/perf.gd" id="1_ni80a"]
+
+[node name="Perf" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+offset = Vector2(5, 5)
+transform = Transform2D(1, 0, 0, 1, 5, 5)
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ni80a")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

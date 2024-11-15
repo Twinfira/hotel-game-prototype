@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://syr6gn6mpxu"]
+
+[ext_resource type="Texture2D" uid="uid://fndeptt1iqen" path="res://assets/external/kenny_prototype-textures/Dark/texture_05.png" id="1_shvv4"]
+[ext_resource type="PackedScene" uid="uid://bp4qvrscwq4wt" path="res://player/player.tscn" id="2_08tu2"]
+[ext_resource type="PackedScene" uid="uid://d1uhy6jlrqobt" path="res://ui/perf.tscn" id="3_6uicl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w18ar"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_s057a"]
+sky_material = SubResource("ProceduralSkyMaterial_w18ar")
+
+[sub_resource type="Environment" id="Environment_um7j2"]
+background_mode = 2
+sky = SubResource("Sky_s057a")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vij7"]
+albedo_texture = ExtResource("1_shvv4")
+uv1_triplanar = true
+
+[node name="Debug" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_um7j2")
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="Floor" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_4vij7")
+use_collision = true
+collision_layer = 3
+size = Vector3(1000, 1, 1000)
+
+[node name="Player" parent="." instance=ExtResource("2_08tu2")]
+mouse_sensitivity = 0.005
+
+[node name="Root" parent="." instance=ExtResource("3_6uicl")]

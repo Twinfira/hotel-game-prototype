@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://dsyo6fgc7va8u"]
+
+[ext_resource type="Texture2D" uid="uid://fndeptt1iqen" path="res://assets/external/kenny_prototype-textures/Dark/texture_05.png" id="1_qjb7d"]
+[ext_resource type="PackedScene" uid="uid://bp4qvrscwq4wt" path="res://player/player.tscn" id="2_30o1j"]
+[ext_resource type="PackedScene" uid="uid://d1uhy6jlrqobt" path="res://ui/perf.tscn" id="3_n1ox5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5sgu"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_116ea"]
+sky_material = SubResource("ProceduralSkyMaterial_i5sgu")
+
+[sub_resource type="Environment" id="Environment_xyk48"]
+background_mode = 2
+sky = SubResource("Sky_116ea")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_56dwp"]
+albedo_texture = ExtResource("1_qjb7d")
+uv1_triplanar = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kcdy3"]
+viewport_path = NodePath("SubViewport")
+
+[node name="DualResRender" type="Node3D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(480, 270)
+size_2d_override_stretch = true
+
+[node name="Scene" type="Node3D" parent="SubViewport"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Scene"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/Scene"]
+environment = SubResource("Environment_xyk48")
+
+[node name="Map" type="Node3D" parent="SubViewport/Scene"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Scene/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_56dwp")
+use_collision = true
+collision_layer = 3
+size = Vector3(1000, 1, 1000)
+
+[node name="Player" parent="SubViewport/Scene" instance=ExtResource("2_30o1j")]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_kcdy3")
+stretch_mode = 4
+
+[node name="Perf" parent="." instance=ExtResource("3_n1ox5")]
