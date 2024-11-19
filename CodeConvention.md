@@ -19,7 +19,7 @@ AttackScript.gd
   
 ## ClassName
   Using a classname, you can make the script globally accessible.
-  Classnames are written in Snake Case
+  Classnames are written in Pascal Case
   
   **Correct**
   ```gdscript
