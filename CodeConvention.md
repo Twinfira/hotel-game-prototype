@@ -1,12 +1,13 @@
 # Code Convention 
 
 - [Scripts](#scripts)
+- [Nodes](#nodes)
 - [ClassName](#classname)
 - [Variables](#variables)
 - [Functions](#functions)
 
 ## Scripts
-- Scripts are written in Snake Case.
+ Scripts are written in Snake Case.
 
 **Correct**
 ```
@@ -16,6 +17,9 @@ attack_script.gd
 ```
 AttackScript.gd
 ```
+
+## Nodes
+Nodes will be written using PascalCase.  
   
 ## ClassName
   Using a classname, you can make the script globally accessible.
@@ -31,8 +35,8 @@ AttackScript.gd
   ```
 
 ## Variables
-- Variables require the type definition. Without this, the code will run significantly slower!
-- Variables are written in Snake Case
+  Variables require the type definition. Without this, the code will run significantly slower!
+  Variables are written in Snake Case
   
  **Correct**
   ```gdscript
