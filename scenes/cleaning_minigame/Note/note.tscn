@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1nnut6xay53k"]
+
+[ext_resource type="Texture2D" uid="uid://daxagxi8ecijp" path="res://assets/external/kenny_prototype-textures/Purple/texture_09.png" id="1_goa4b"]
+[ext_resource type="Script" path="res://scripts/cleaning_minigame/note_movement.gd" id="2_p63vg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yusmn"]
+size = Vector2(102, 102)
+
+[node name="Note" type="Sprite2D"]
+z_index = 5
+position = Vector2(960, 96)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_goa4b")
+script = ExtResource("2_p63vg")
+
+[node name="NoteArea" type="Area2D" parent="." groups=["Note"]]
+position = Vector2(0.000976563, -6.10352e-05)
+scale = Vector2(10, 10)
+
+[node name="NoteHitbox" type="CollisionShape2D" parent="NoteArea"]
+position = Vector2(0.00012207, 7.62939e-06)
+shape = SubResource("RectangleShape2D_yusmn")

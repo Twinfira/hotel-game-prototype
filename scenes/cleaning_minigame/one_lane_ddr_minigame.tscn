@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://s300r8nmsgni"]
+
+[ext_resource type="Script" path="res://scripts/cleaning_minigame/ddr_manager.gd" id="1_rcauc"]
+[ext_resource type="Script" path="res://scripts/cleaning_minigame/note_spawner.gd" id="1_v682a"]
+[ext_resource type="PackedScene" uid="uid://d1nnut6xay53k" path="res://scenes/cleaning_minigame/Note/note.tscn" id="2_bew4o"]
+[ext_resource type="Script" path="res://scripts/cleaning_minigame/destroy_note.gd" id="3_xhn4f"]
+[ext_resource type="Script" path="res://scripts/cleaning_minigame/hit_detector.gd" id="4_pv0h5"]
+[ext_resource type="Texture2D" uid="uid://b3bt8bb7kwu6q" path="res://assets/external/kenny_prototype-textures/Green/texture_03.png" id="5_uqd3o"]
+[ext_resource type="Script" path="res://scripts/cleaning_minigame/score_manager.gd" id="5_whg86"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_detmo"]
+size = Vector2(112, 112)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uc74j"]
+
+[node name="OneLaneDDRMinigame" type="Node2D" node_paths=PackedStringArray("score_manager", "hit_detector", "note_spawner")]
+script = ExtResource("1_rcauc")
+score_manager = NodePath("ScoreManager")
+hit_detector = NodePath("HitDetector/HitDetectorSprite/HitDetectorHitbox")
+note_spawner = NodePath("NoteSpawner")
+
+[node name="NoteSpawner" type="Node2D" parent="." node_paths=PackedStringArray("spawn_timer", "spawn_location")]
+script = ExtResource("1_v682a")
+note_scene = ExtResource("2_bew4o")
+spawn_timer = NodePath("SpawnDelay")
+spawn_location = NodePath("SpawnPosition")
+
+[node name="SpawnPosition" type="Node2D" parent="NoteSpawner"]
+position = Vector2(960, 0)
+
+[node name="SpawnDelay" type="Timer" parent="NoteSpawner"]
+wait_time = 5.0
+autostart = true
+
+[node name="HitDetector" type="Node2D" parent="."]
+position = Vector2(960, 824)
+
+[node name="HitDetectorSprite" type="Sprite2D" parent="HitDetector"]
+position = Vector2(-3.05176e-05, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_uqd3o")
+
+[node name="HitDetectorHitbox" type="Area2D" parent="HitDetector/HitDetectorSprite"]
+scale = Vector2(9.14286, 9.14286)
+script = ExtResource("4_pv0h5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetector/HitDetectorSprite/HitDetectorHitbox"]
+shape = SubResource("RectangleShape2D_detmo")
+
+[node name="ScoreManager" type="Node2D" parent="."]
+script = ExtResource("5_whg86")
+
+[node name="KillZone" type="Node2D" parent="."]
+position = Vector2(960, 1280)
+script = ExtResource("3_xhn4f")
+
+[node name="Area2D" type="Area2D" parent="KillZone"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone/Area2D"]
+shape = SubResource("WorldBoundaryShape2D_uc74j")
+
+[connection signal="timeout" from="NoteSpawner/SpawnDelay" to="NoteSpawner" method="_on_spawn_delay_timeout"]
+[connection signal="area_entered" from="HitDetector/HitDetectorSprite/HitDetectorHitbox" to="HitDetector/HitDetectorSprite/HitDetectorHitbox" method="_on_area_entered"]
+[connection signal="area_entered" from="KillZone/Area2D" to="KillZone" method="_on_area_2d_area_entered"]
