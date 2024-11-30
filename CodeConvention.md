@@ -53,7 +53,8 @@ Nodes will be written using PascalCase.
 
 ## Functions
   Functions, just like variables need type definitions. They are also written in Snake Case
-  Functions with the _ prefix, are godot functions. The functions written by us, will not have a prefix of _
+  Functions with the _ prefix, are godot functions.
+  Alternatively, you can prefix them with _ yourself, as this will mark the method private
   
   **Correct**
   ```gdscript
