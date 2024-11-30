@@ -5,7 +5,7 @@ signal note_missed
 
 @export var hit_margin: float = 50
 
-func _unhandled_input(event):
+func _unhandled_input(event) -> void:
 	if event.is_action_pressed("hit_note"):
 		var closest_note = get_closest_note()
 		if closest_note:

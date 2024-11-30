@@ -15,7 +15,7 @@ enum Rating {
 @export var combo_multiplier: float = 2.0
 @export var combo_threshold: int = 5
 
-func add_score(accuracy: float):
+func add_score(accuracy: float) -> void:
 	var rating: Rating
 	
 	match accuracy:
@@ -42,6 +42,6 @@ func add_score(accuracy: float):
 	
 	print(Rating.find_key(rating) + "! Score: ", score, " Combo: ", combo)
 
-func reset_combo():
+func reset_combo() -> void:
 	combo = 0
 	print("MISS! Score: ", score, " Combo: ", combo)
